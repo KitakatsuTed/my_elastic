@@ -12,17 +12,20 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'dotenv-rails'
-gem 'elasticsearch-rails', '~> 6.0'
-gem 'elasticsearch', '~> 6.0'
-gem 'elasticsearch-model', '6.0'
 gem 'kaminari'
 gem 'enum_help'
 gem 'seed-fu', '~> 2.3'
 gem 'seed_dump'
-gem 'hirb'
-gem 'hirb-unicode'
+
+# elasticsearch
+gem 'elasticsearch-rails', '~> 6.0'
+gem 'elasticsearch', '~> 6.0'
+gem 'elasticsearch-model', '6.0'
+# 非同期
 gem 'sidekiq'
 gem "sidekiq-cron", "~> 1.1"
+gem 'redis-rails'
+
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

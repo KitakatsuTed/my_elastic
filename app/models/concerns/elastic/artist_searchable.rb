@@ -3,34 +3,33 @@ module Elastic::ArtistSearchable
 
   included do
     include Elasticsearch::Model
-    # include Elasticsearch::Model::Callbacks
+    include Elasticsearch::Model::Callbacks
 
-    index_name "#{self.class}_#{Rails.env}" # 接続するindex名
+    index_name "artists_#{Rails.env}" # 接続するindex名
 
     # after_commitでRDBを操作した時にESのインデックスも同期させる
     # アプリのサーバーに負荷をかけ無いように非同期で実行させる
     after_commit on: [:create] do
-      ElasticSearchIndexerJob.perform_later(self.class.to_s, self.id)
+      IndexBaseWorker.new(Artists::IndexWorker.new).perform({ operation: :index, record_id: id })
+      # Artists::IndexWorker.perform_async(:index, id)
     end
 
     after_commit on: [:update] do
-      ElasticSearchIndexUpdaterJob.perform_later(self.class.to_s, self.id)
+      Artists::IndexWorker.perform_async(:index, id)
     end
 
     after_commit on: [:destroy] do
-      begin
-        __elasticsearch__.delete_document
-      rescue => ex
-      end
+      Artists::IndexWorker.perform_async(:delete, id)
     end
 
     settings index: { number_of_shards: 1 } do
+      # ES6からStringが使えないのでtextかkeywordにする。
       mappings dynamic: 'false' do
         indexes :id, type: 'integer'
-        indexes :name, type: 'string'
+        indexes :name, type: 'text'
         indexes :age, type: 'integer'
         indexes :birth, type: 'date'
-        indexes :gender, type: 'integer'
+        indexes :gender, type: 'text' # enumを使用している場合は文字列(text)でドキュメント保存にする
 
         # indexes :name, type: 'nested' do
         #   indexes :name, analyzer: 'ngram_analyzer', type: 'string'
@@ -41,9 +40,7 @@ module Elastic::ArtistSearchable
 
     # オーバーライド
     def as_indexed_json(_options = {})
-      attributes
-          .symbolize_keys
-          .slice(:id, :name, :birth, :age, :gender)
+      attributes.symbolize_keys.slice(:id, :name, :birth, :age, :gender)
     end
   end
 

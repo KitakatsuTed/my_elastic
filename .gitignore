@@ -29,3 +29,9 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# Ignore editor file
+/.idea
+# addition
+/vendor/bundle/
+./docker/data

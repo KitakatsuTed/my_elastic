@@ -6,7 +6,7 @@ ja:
         age: 年齢
         gender: 性別
         birth: 誕生日
-  enum:
+  enums:
     artist:
       gender:
         man: 男性

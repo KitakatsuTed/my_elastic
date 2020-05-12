@@ -12,6 +12,16 @@ threads min_threads_count, max_threads_count
 #
 port        ENV.fetch("PORT") { 3000 }
 
+if ENV['SIDEKIQ_SPAWN'] # Spawn the workers from Puma, to only use one dyno
+  workers ENV.fetch("WEB_CONCURRENCY") { 1 }
+
+  preload_app!
+
+  on_worker_boot do
+    @sidekiq_pid ||= spawn('bundle exec sidekiq -C ./config/sidekiq.yml ')
+    ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
+  end
+end
 # Specifies the `environment` that Puma will run in.
 #
 environment ENV.fetch("RAILS_ENV") { "development" }

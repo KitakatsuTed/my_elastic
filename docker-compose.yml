@@ -1,0 +1,95 @@
+version: '2.2'
+
+services:
+#  conf: &app_base
+#    image: elastic_practice:dev
+#    env_file:
+#    - ./.env
+#    command: /bin/bash
+#    environment:
+#    - PORT=3000
+#    - DOCKER=true
+#    - DB_USERNAME=postgres
+#    - DB_PASSWORD=pass
+#    - DB_HOSTNAME=db
+#    - REDIS_URL=redis://redis:6379
+#    build:
+#      context: .
+#      dockerfile: ./docker/Dockerfile
+#    volumes:
+#    - .:/opt/project:cached
+#    - /opt/project/.git
+#    - /opt/project/.bundle
+#    - /opt/project/vendor/bundle
+#    - /opt/project/log
+#    - /opt/project/public/assets
+    #      - ./docker/data/opt/project/public/packs:/opt/project/public/packs:cached
+    #      - ./docker/data/opt/project/public/packs-test:/opt/project/public/packs-test:cached
+#    - ./docker/data/bundle:/usr/local/bundle:cached
+
+#  app:
+#    <<: *app_base
+#    tty: true
+#    stdin_open: true
+#    depends_on:
+#    - db
+#    - redis
+#    - es
+#    command: ./docker/wait-for-it.sh db:5432 -- ./docker/wait-for-it.sh redis:6379 -- ./boot.sh
+
+  db:
+    image: postgres:9.6.9-alpine
+    restart: always
+    ports:
+    - 4432:5432
+    volumes:
+    - ./docker/data/postgres:/var/lib/postgresql/data:cached
+
+  es:
+    image: elasticsearch:6.8.8
+    restart: always
+    environment:
+    - discovery.type=single-node
+    - bootstrap.memory_lock=true
+    - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    ports:
+      - 9300:9200
+    volumes:
+      - ./docker/data/elastic:/usr/share/elasticsearch/data
+
+  redis:
+    restart: always
+    image: redis:alpine
+    sysctls:
+      net.core.somaxconn: '511' # https://github.com/docker-library/redis/issues/35
+    ports:
+    - 26379:6379
+    volumes:
+    - ./docker/data/redis:/data:cached
+
+#  worker:
+#    <<: *app_base
+#    restart: always
+#    command: ./docker/wait-for-it.sh db:5432 -- ./docker/wait-for-it.sh redis:6379 -- bundle exec sidekiq  -C config/sidekiq.yml
+#    depends_on:
+#    - app
+#    - db
+#    - redis
+#    - es
+
+
+  #  webpack:
+  #    <<: *app_base
+  #    command: "bin/webpack-dev-server"
+  #    ports:
+  #      - "3035"
+  #    depends_on:
+  #      - db
+  #      - redis

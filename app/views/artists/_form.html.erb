@@ -22,13 +22,13 @@
   </div>
 
   <div class="field">
-    <%= form.label :gender %>
-    <%= form.number_field :gender %>
+    <%= form.label :birth %>
+    <%= form.date_select :birth, { start_year: 1950, end_year: Time.zone.now.year } %>
   </div>
 
   <div class="field">
-    <%= form.label :birth %>
-    <%= form.date_select :birth %>
+    <%= form.label :gender %>
+    <%= form.select :gender, Artist.genders_i18n.invert %>
   </div>
 
   <div class="actions">

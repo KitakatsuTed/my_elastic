@@ -1,14 +1,15 @@
 Sidekiq.configure_server do |config|
-  config.redis = { url: ENV['REDIS_URL'] }
+  config.redis = { url: ENV['REDIS_URL'] } #fetch
 
   # 非同期処理でエラーが発生したときにここで開発者に通知する
-  # config.error_handlers << Proc.new do |exception, ctx_hash|
-  #   return if exception.nil?
-  #   logger.info "Async Processing with exception: #{exception.message}"
-  #   logger.warn(exception.backtrace.join("\n"))
-  #
-  #   Rollbar.error(exception, ctx_hash)
-  # end
+  config.error_handlers << Proc.new do |exception, ctx_hash|
+    return if exception.nil?
+
+    Rails.logger.info "##############################\nAsync Processing with exception: #{exception.message}"
+    Rails.logger.warn(exception.backtrace.join("\n"))
+
+    # Rollbar.error(exception, ctx_hash)
+  end
 end
 
 # if Rails.env.production? || Rails.env.staging?

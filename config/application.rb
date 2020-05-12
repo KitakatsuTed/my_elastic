@@ -14,6 +14,7 @@ module MyElastic
 
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', 'models', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :ja
+    config.active_job.queue_adapter = :sidekiq
 
     config.time_zone = 'Asia/Tokyo'
     config.generators do |g|
