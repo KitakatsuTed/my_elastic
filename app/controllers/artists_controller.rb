@@ -5,6 +5,8 @@ class ArtistsController < ApplicationController
   # GET /artists.json
   def index
     @artists = Artist.all
+    @mapping = Elasticsearch::Model.client.indices.get_mapping["artists_development"]["mappings"]["_doc"]["properties"]
+    @indices = Elasticsearch::Model.client.indices.perform_request(:get, "artists_development/_search").body["hits"]["hits"]
   end
 
   # GET /artists/1

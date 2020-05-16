@@ -28,6 +28,54 @@
   </tbody>
 </table>
 
+<table>
+  <thead>
+  <tr>
+    <th>ActiveRecordカラム</th>
+    <th>ESの型</th>
+  </tr>
+  </thead>
+  <tbody>
+    <% @mapping.keys.each do |key| %>
+      <tr>
+        <td>
+          <%= key %>
+        </td>
+        <td>
+          <%= @mapping[key]["type"] %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>ドキュメントid</th>
+      <th>スコア</th>
+      <th colspan="<%= @indices.first["_source"].keys.size %>">属性値</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @indices.each do |index| %>
+      <tr>
+        <td>
+          <%= index["_id"] %>
+        </td>
+        <td>
+          <%= index["_score"] %>
+        </td>
+        <% index["_source"].keys.each do |key| %>
+          <td>
+            <%= index["_source"][key] %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 <br>
 
 <%= link_to 'New Artist', new_artist_path %>
