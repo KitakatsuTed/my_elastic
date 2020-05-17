@@ -42,7 +42,7 @@
           <%= key %>
         </td>
         <td>
-          <%= @mapping[key]["type"] %>
+          <%= @mapping[key][:type] %>
         </td>
       </tr>
     <% end %>
@@ -54,7 +54,11 @@
     <tr>
       <th>ドキュメントid</th>
       <th>スコア</th>
-      <th colspan="<%= @indices.first["_source"].keys.size %>">属性値</th>
+      <% Artist.mapping_list_keys.each do |key| %>
+        <th>
+          <%= key.to_s %>
+        </th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
@@ -66,9 +70,9 @@
         <td>
           <%= index["_score"] %>
         </td>
-        <% index["_source"].keys.each do |key| %>
+        <% Artist.mapping_list_keys.each do |key| %>
           <td>
-            <%= index["_source"][key] %>
+            <%= index["_source"][key.to_s] %>
           </td>
         <% end %>
       </tr>

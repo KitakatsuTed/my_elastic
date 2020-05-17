@@ -8,7 +8,7 @@ class Artists::IndexWorker
 
     Rails.logger.debug [operation, "ID: #{artist.id}"]
 
-    Elastic::Indexer.new.index_document(operation, artist)
+    Elastic::DocumentIndexer.new.index_document(operation, artist)
   end
 
   def execute(arg_hash)

@@ -1,4 +1,4 @@
-class Elastic::Indexer < Elastic::ElasticSearchBase
+class Elastic::DocumentIndexer < Elastic::ElasticSearchBase
   def index_document(operation, record)
     case operation.to_s
     when /index/
