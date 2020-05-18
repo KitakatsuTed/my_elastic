@@ -5,7 +5,7 @@ module Elastic::Searchable
     include Elasticsearch::Model
     include Elasticsearch::Model::Callbacks
 
-    index_name "#{self.to_s.downcase.pluralize}_#{Rails.env}_#{Time.zone.now.strftime('%Y%m%d%H%M')}"
+    index_name "#{self.to_s.downcase.pluralize}_#{Rails.env}"
 
     # after_commitでRDBを操作した時にESのインデックスも同期させる
     # アプリのサーバーに負荷をかけ無いように非同期で実行させる
@@ -30,7 +30,7 @@ module Elastic::Searchable
   module ClassMethods
     # インデックスを作成 デフォルトは クラス名の小文字_環境名
     def create_index
-      Elastic::IndexHandler.new(self).create_index
+      Elastic::IndexHandler.new(self).create_index("#{index_name}_#{Time.zone.now.strftime('%Y%m%d%H%M')}")
     end
 
     def delete_index(target_index)
@@ -39,20 +39,13 @@ module Elastic::Searchable
 
     # DBの内容をESのインデックスに同期する
     def import_all_record(target_index: ,batch_size: 100)
-      Elastic::IndexHandler.new(self).delete_index(target_index: target_index, batch_size: batch_size)
-      # __elasticsearch__.import(index: target_index, batch_size: batch_size)
+      Elastic::IndexHandler.new(self).import_all_record(target_index: target_index, batch_size: batch_size)
     end
 
     # ダウンタイムなしでインデックスを切り替える
     # https://techlife.cookpad.com/entry/2015/09/25/170000
-    def switch_alias(alias_name:, new_index_name:)
-      Elastic::IndexHandler.new(self).switch_alias(alias_name: alias_name, new_index_name: new_index_name)
-
-      # actions = [{ add: { index: new_index_name, alias: alias_name } }]
-      # old_indexes = get_aliases(alias_name: alias_name).keys
-      # old_indexes.each { |old_index| actions << { remove: { index: old_index, alias: alias_name } } }
-      #
-      # __elasticsearch__.client.indices.update_aliases(body: { actions: actions })
+    def switch_alias(new_index_name:)
+      Elastic::IndexHandler.new(self).switch_alias(alias_name: index_name, new_index_name: new_index_name)
     end
 
     def index_config(dynamic: 'false', number_of_shards: 1, attr_mappings:)
@@ -70,7 +63,7 @@ module Elastic::Searchable
       mappings.to_hash[:_doc][:properties].keys
     end
 
-    def get_aliases(alias_name: '')
+    def get_aliases
       begin
         __elasticsearch__.client.indices.get_alias(index: alias_name)
       rescue Elasticsearch::Transport::Transport::Errors::NotFound
