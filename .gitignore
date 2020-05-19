@@ -34,5 +34,5 @@ yarn-debug.log*
 /.idea
 # addition
 /vendor/bundle/
-./docker/data
+/docker/data/*
 .env
