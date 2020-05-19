@@ -10,6 +10,8 @@ class Elastic::IndexHandler
   end
 
   def delete_index(target_index)
+    raise 'エイリアス指定中に削除できません' if target_index == @klass.target_alias
+
     get_client.indices.delete index: target_index rescue false
   end
 
@@ -22,6 +24,8 @@ class Elastic::IndexHandler
   # ダウンタイムなしでインデックスを切り替える
   # https://techlife.cookpad.com/entry/2015/09/25/170000
   def switch_alias(alias_name:, new_index_name:)
+    raise 'すでにエイリアス指定中です' if new_index_name == @klass.target_alias
+
     actions = [{ add: { index: new_index_name, alias: alias_name } }]
     old_indexes = @klass.get_aliases.keys
     old_indexes.each { |old_index| actions << { remove: { index: old_index, alias: alias_name } } }

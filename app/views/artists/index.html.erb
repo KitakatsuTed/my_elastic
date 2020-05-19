@@ -28,6 +28,38 @@
   </tbody>
 </table>
 
+<div>
+  <%= link_to 'インデックス作成', elastic_create_path(class_name: "Artist"), method: :post %>
+  <%= link_to 'データ同期', elastic_import_path(class_name: "Artist"), method: :post %>
+  <table>
+    <thead>
+    <tr>
+      <th>インデックス</th>
+      <th>エイリアス</th>
+      <th colspan="2">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @aliases.keys.each do |key| %>
+      <tr>
+        <td>
+          <%= key %>
+        </td>
+        <td>
+          <%= @aliases[key]["aliases"].keys.join(',') %>
+        </td>
+        <td>
+          <%= link_to 'エイリアス切り替え', elastic_switch_path(class_name: "Artist", index_name: key), method: :post %>
+        </td>
+        <td>
+          <%= link_to 'インデックス削除', elastic_delete_path(class_name: "Artist", index_name: key), method: :post %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
 <table>
   <thead>
   <tr>

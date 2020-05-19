@@ -28,6 +28,11 @@ module Elastic::Searchable
   end
 
   module ClassMethods
+    def index_setup
+      response = create_index
+      switch_alias(new_index_name: response["index"])
+      import_all_record(target_index: response["index"])
+    end
     # インデックスを作成 デフォルトは クラス名の小文字_環境名
     def create_index
       Elastic::IndexHandler.new(self).create_index("#{index_name}_#{Time.zone.now.strftime('%Y%m%d%H%M')}")
@@ -65,10 +70,14 @@ module Elastic::Searchable
 
     def get_aliases
       begin
-        __elasticsearch__.client.indices.get_alias(index: alias_name)
+        __elasticsearch__.client.indices.get_alias(index: '')
       rescue Elasticsearch::Transport::Transport::Errors::NotFound
         raise Elasticsearch::Transport::Transport::Errors::NotFound, "インデックスがありません alias_name: #{alias_name}"
       end
+    end
+
+    def target_alias
+      get_aliases.keys.select { |index| get_aliases[index]["aliases"].present? }.first
     end
   end
 end
