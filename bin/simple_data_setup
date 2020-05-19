@@ -1,0 +1,4 @@
+#!/bin/bash
+bin/rails db:create
+bin/rails db:migrate
+bin/rake data:setup
