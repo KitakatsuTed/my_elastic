@@ -81,6 +81,42 @@
   </tbody>
 </table>
 
+<div>
+  <h2>
+    ESサーチ
+  </h2>
+  <%= form_with model: @query_form, url: result_artists_path, local: true, method: :get do |f| %>
+    <div class="field">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :age %>
+      <%= f.number_field :age %>
+    </div>
+
+    <div class="field">
+      <%= f.label :birth %>
+      <%= f.date_select :birth, { start_year: 1950, end_year: Time.zone.now.year } %>
+    </div>
+
+    <div class="field">
+      <%= f.label :gender %>
+      <%= f.select :gender, Artist.genders_i18n.invert %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+
 <table>
   <thead>
     <tr>
