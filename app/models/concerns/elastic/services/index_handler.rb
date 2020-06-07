@@ -1,9 +1,6 @@
 module Elastic
   module Services
     class IndexHandler
-      include Sidekiq::Worker
-      sidekiq_options queue: :elasticsearch, retry: false
-
       def initialize(klass)
         @klass = klass
       end
