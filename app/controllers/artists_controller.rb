@@ -6,7 +6,7 @@ class ArtistsController < ApplicationController
   def index
     @artists = Artist.all
     @mapping = Artist.__elasticsearch__.mapping.to_hash[:_doc][:properties]
-    @indices = Artist.search('{"query":{"match_all": {} }}').results.results.as_json # Array
+    @indices = Artist.search({ query: {"match_all": {}}, size: 15 }).results.results.as_json # Array
 
     # @indices = Artist.search(@query_form = Elastic::SearchForm.new.build_query).results.results.as_json # Array
     @aliases = Artist.get_aliases
