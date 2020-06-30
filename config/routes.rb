@@ -2,7 +2,7 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
   resources :artists do
-    get 'result' => 'artists#result', on: :collection
+    get 'search' => 'artists#search', on: :collection
   end
 
   namespace :elastic do
