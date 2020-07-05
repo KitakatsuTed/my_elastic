@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/KitakatsuTed/tedlib.git
+  revision: ad4cdce4c37feb0d8aa39839094082bf24aa2c87
+  specs:
+    tedlib (0.1.11)
+      rails (>= 5.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -309,6 +316,7 @@ DEPENDENCIES
   sidekiq-cron (~> 1.1)
   spring
   spring-watcher-listen (~> 2.0.0)
+  tedlib!
   turbolinks (~> 5)
   tzinfo-data
   web-console (>= 3.3.0)

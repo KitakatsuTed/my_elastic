@@ -1,5 +1,6 @@
 class Artist < ApplicationRecord
-  include Elastic::Syncable
+  # include Elastic::Syncable
+  include Tedlib::Elastic::Syncable
 
   enum gender: { man: 2, woman: 3 }
   # must define index_config otherwise mapping is not mapped
