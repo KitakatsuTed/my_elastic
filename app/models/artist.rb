@@ -5,7 +5,8 @@ class Artist < ApplicationRecord
   enum gender: { man: 2, woman: 3 }
   # must define index_config otherwise mapping is not mapped
   # you can set argument to index_config to customize mapping
-  index_config override_mappings: { name: { type: :text, "analyzer": "kuromoji" } }
+  index_config override_mappings: { name: { type: :keyword } }
+  # index_config override_mappings: { name: { type: :text, "analyzer": "kuromoji" } }
 
   # you can override default setting and mapping like below instead define index_config
   #
@@ -20,8 +21,4 @@ class Artist < ApplicationRecord
   validates :birth, presence: true
   validates :gender, presence: true
 
-
-  def document_sync_create
-
-  end
 end

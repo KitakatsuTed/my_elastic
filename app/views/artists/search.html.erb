@@ -14,12 +14,12 @@
 
     <div class="field">
       <%= f.label :age_from %>
-      <%= f.number_field :age_from, value: f.object.age_from %>
+      <%= f.number_field :age_from, value: f.object.age_from || 0 %>
     </div>
 
     <div class="field">
       <%= f.label :age_to %>
-      <%= f.number_field :age_to, value: f.object.age_to %>
+      <%= f.number_field :age_to, value: f.object.age_to || 99 %>
     </div>
 
     <div class="field">

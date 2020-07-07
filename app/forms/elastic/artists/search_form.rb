@@ -40,7 +40,8 @@ class Elastic::Artists::SearchForm
             {
               "bool": {
                 "must": [
-                  { "terms": { "gender": gender ? [gender] : ['man', 'woman'] } },
+                  { "term": { "name": name ? name : '' } },
+                  { "terms": { "gender": gender ? [gender] : ['man', 'woman'] } }
                 ]
               }
             },
@@ -51,7 +52,7 @@ class Elastic::Artists::SearchForm
             },
             {
               "range": {
-                "age": { "gte": age_from, "lte": age_to }
+                "age": { "gte": age_from ? age_from : 0, "lte": age_to ? age_to : 99 }
               }
             }
           ]
