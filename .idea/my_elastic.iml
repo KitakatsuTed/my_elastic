@@ -514,6 +514,19 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
+      <library name="elastic_ar_sync (vbundled(0.1.1)) [path][gem]" type="rubylib">
+        <properties>
+          <option name="version" value="4" />
+        </properties>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/elastic_ar_sync-0.1.1/lib" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/elastic_ar_sync-0.1.1/lib" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
       <library name="elasticsearch (vbundled(6.8.2)) [path][gem]" type="rubylib">
         <properties>
           <option name="version" value="4" />
@@ -1790,30 +1803,6 @@
         <SOURCES>
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sprockets-rails-3.2.1/lib" />
         </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="tedlib (vbundled(0.1.11)) [path][gem]" type="rubylib">
-        <properties>
-          <option name="version" value="4" />
-        </properties>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/bundler/gems/tedlib-ad4cdce4c37f/bin" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/bundler/gems/tedlib-ad4cdce4c37f/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/bundler/gems/tedlib-ad4cdce4c37f/.git" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/bundler/gems/tedlib-ad4cdce4c37f/test" />
-        </CLASSES>
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/bundler/gems/tedlib-ad4cdce4c37f/bin" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/bundler/gems/tedlib-ad4cdce4c37f/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/bundler/gems/tedlib-ad4cdce4c37f/.git" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/bundler/gems/tedlib-ad4cdce4c37f/test" />
-        </SOURCES>
-        <excluded>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/bundler/gems/tedlib-ad4cdce4c37f/bin" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/bundler/gems/tedlib-ad4cdce4c37f/.git" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/bundler/gems/tedlib-ad4cdce4c37f/test" />
-        </excluded>
       </library>
     </orderEntry>
     <orderEntry type="module-library">

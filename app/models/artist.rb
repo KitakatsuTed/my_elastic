@@ -1,6 +1,6 @@
 class Artist < ApplicationRecord
   # include Elastic::Syncable
-  include Tedlib::Elastic::Syncable
+  include ElasticArSync::Elastic::Syncable
 
   enum gender: { man: 2, woman: 3 }
   # must define index_config otherwise mapping is not mapped
@@ -20,4 +20,8 @@ class Artist < ApplicationRecord
   validates :birth, presence: true
   validates :gender, presence: true
 
+
+  def document_sync_create
+
+  end
 end
