@@ -66,6 +66,7 @@
   <tr>
     <th>ActiveRecordカラム</th>
     <th>ESの型</th>
+    <th>オプション</th>
   </tr>
   </thead>
   <tbody>
@@ -75,7 +76,10 @@
           <%= key %>
         </td>
         <td>
-          <%= @mapping[key][:type] %>
+          <%= @mapping[key]["type"] %>
+        </td>
+        <td>
+          <%= @mapping[key].reject { |key, _| key == "type" } %>
         </td>
       </tr>
     <% end %>

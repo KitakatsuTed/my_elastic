@@ -3,7 +3,7 @@ class ArtistsController < ApplicationController
 
   def index
     @artists = Artist.all
-    @mapping = Artist.__elasticsearch__.mapping.to_hash[:_doc][:properties]
+    @mapping = Artist.current_mapping
     @aliases = Artist.get_aliases
   end
 

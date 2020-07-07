@@ -21,7 +21,7 @@ gem 'seed_dump'
 gem 'elasticsearch-rails', '~> 6.0'
 gem 'elasticsearch', '~> 6.0'
 gem 'elasticsearch-model', '6.0'
-gem 'elastic_ar_sync'
+gem 'elastic_ar_sync', github: 'KitakatsuTed/elastic_ar_sync'
 # 非同期
 gem 'sidekiq'
 gem "sidekiq-cron", "~> 1.1"

@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/KitakatsuTed/elastic_ar_sync.git
+  revision: d4c28f710584666a60a0ae3753c4b863e68fc212
+  specs:
+    elastic_ar_sync (0.1.2)
+      rails (>= 5.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -87,8 +94,6 @@ GEM
     dotenv-rails (2.7.5)
       dotenv (= 2.7.5)
       railties (>= 3.2, < 6.1)
-    elastic_ar_sync (0.1.1)
-      rails (>= 5.1.0)
     elasticsearch (6.8.2)
       elasticsearch-api (= 6.8.2)
       elasticsearch-transport (= 6.8.2)
@@ -292,7 +297,7 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   dotenv-rails
-  elastic_ar_sync
+  elastic_ar_sync!
   elasticsearch (~> 6.0)
   elasticsearch-model (= 6.0)
   elasticsearch-rails (~> 6.0)
