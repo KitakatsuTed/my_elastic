@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/KitakatsuTed/elastic_ar_sync.git
-  revision: d4c28f710584666a60a0ae3753c4b863e68fc212
+  revision: 11192d1969a01bbb09947741d97feb78b4eaf666
   specs:
-    elastic_ar_sync (0.1.2)
+    elastic_ar_sync (0.1.8)
       rails (>= 5.1.0)
 
 GEM
