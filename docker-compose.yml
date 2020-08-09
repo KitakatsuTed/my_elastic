@@ -1,42 +1,6 @@
 version: '2.2'
 
 services:
-#  conf: &app_base
-#    image: elastic_practice:dev
-#    env_file:
-#    - ./.env
-#    command: /bin/bash
-#    environment:
-#    - PORT=3000
-#    - DOCKER=true
-#    - DB_USERNAME=postgres
-#    - DB_PASSWORD=pass
-#    - DB_HOSTNAME=db
-#    - REDIS_URL=redis://redis:6379
-#    build:
-#      context: .
-#      dockerfile: ./docker/Dockerfile
-#    volumes:
-#    - .:/opt/project:cached
-#    - /opt/project/.git
-#    - /opt/project/.bundle
-#    - /opt/project/vendor/bundle
-#    - /opt/project/log
-#    - /opt/project/public/assets
-    #      - ./docker/data/opt/project/public/packs:/opt/project/public/packs:cached
-    #      - ./docker/data/opt/project/public/packs-test:/opt/project/public/packs-test:cached
-#    - ./docker/data/bundle:/usr/local/bundle:cached
-
-#  app:
-#    <<: *app_base
-#    tty: true
-#    stdin_open: true
-#    depends_on:
-#    - db
-#    - redis
-#    - es
-#    command: ./docker/wait-for-it.sh db:5432 -- ./docker/wait-for-it.sh redis:6379 -- ./boot.sh
-
   db:
     image: postgres:9.6.9-alpine
     restart: always
@@ -78,23 +42,3 @@ services:
     - 26379:6379
     volumes:
     - ./docker/data/redis:/data:cached
-
-#  worker:
-#    <<: *app_base
-#    restart: always
-#    command: ./docker/wait-for-it.sh db:5432 -- ./docker/wait-for-it.sh redis:6379 -- bundle exec sidekiq  -C config/sidekiq.yml
-#    depends_on:
-#    - app
-#    - db
-#    - redis
-#    - es
-
-
-  #  webpack:
-  #    <<: *app_base
-  #    command: "bin/webpack-dev-server"
-  #    ports:
-  #      - "3035"
-  #    depends_on:
-  #      - db
-  #      - redis
