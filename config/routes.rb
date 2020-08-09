@@ -1,7 +1,9 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  resources :artists
+  resources :artists do
+    get 'search' => 'artists#search', on: :collection
+  end
 
   namespace :elastic do
     post 'create' => 'indices#create'

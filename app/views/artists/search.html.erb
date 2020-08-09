@@ -1,0 +1,102 @@
+<p id="notice"><%= notice %></p>
+
+<h1>検索結果</h1>
+
+<div>
+  <h2>
+    ESサーチ
+  </h2>
+  <%= form_with model: @search_form, url: search_artists_path, local: true, method: :get do |f| %>
+    <div class="field">
+      <%= f.label :name %>
+      <%= f.text_field :name, value: f.object.name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :age_from %>
+      <%= f.number_field :age_from, value: f.object.age_from || 0 %>
+    </div>
+
+    <div class="field">
+      <%= f.label :age_to %>
+      <%= f.number_field :age_to, value: f.object.age_to || 99 %>
+    </div>
+
+    <div class="field">
+      <%= f.label :birth_from %>
+      <%= f.date_select :birth_from, { start_year: 1950, end_year: Time.zone.now.year }, value: f.object.birth_from %>
+    </div>
+
+    <div class="field">
+      <%= f.label :birth_to %>
+      <%= f.date_select :birth_to, { start_year: 1950, end_year: Time.zone.now.year }, value: f.object.birth_to %>
+    </div>
+
+    <div class="field">
+      <%= f.label :gender %>
+      <%= f.select :gender, Artist.genders_i18n.invert, value: f.object.gender %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>Birth</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @search_form.records.each do |artist| %>
+      <tr>
+        <td><%= artist.name %></td>
+        <td><%= artist.age %></td>
+        <td><%= artist.gender %></td>
+        <td><%= artist.birth %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<table>
+  <thead>
+    <tr>
+      <th>ドキュメントid</th>
+      <th>スコア</th>
+      <% Artist.mapping_list_keys.each do |key| %>
+        <th>
+          <%= key.to_s %>
+        </th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @search_form.get_indices.each do |index| %>
+      <tr>
+        <td>
+          <%= index["_id"] %>
+        </td>
+        <td>
+          <%= index["_score"] %>
+        </td>
+        <% Artist.mapping_list_keys.each do |key| %>
+          <td>
+            <%= index["_source"][key.to_s] %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+
+<%= @search_form.query.to_json %>
