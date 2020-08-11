@@ -26,3 +26,5 @@
 9. `bin/rake data:setup` でelasticsearchにインデックスを作成する
 10. `bin/rails s`でサービスとsidekiqを立ち上げ、`localhost:3000`がエラーなくひらけたら完了
 
+### 簡単な使い方
+https://ted-tech.hateblo.jp/entry/2020/08/11/182612
