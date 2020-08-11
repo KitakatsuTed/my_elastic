@@ -1,24 +1,28 @@
-# README
+# 環境構築
+- Ruby 2.6.3
+- PostgreSQL 9.6.9
+- elasticsearch 6.8.8
+- Rails 6.0.2.2
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 手順
+1. レポジトリ(https://github.com/KitakatsuTed/my_elastic.git)をクローン
 
-Things you may want to cover:
+`git clone https://github.com/KitakatsuTed/my_elastic.git`
 
-* Ruby version
+2. Ruby 2.6.3 のインストール
+3. gemをインストールする
 
-* System dependencies
+`bundle install`
 
-* Configuration
+4. .env.sampleをそのまま`.env`にコピペする(ポートの干渉等あれば調整をお願いします)
+5. ルートディレクトリで下記を実行して、docker-composeを立ち上げる
 
-* Database creation
+`docker-compose up`
 
-* Database initialization
+6. `yarn install --check-files`でyarnをインストール
 
-* How to run the test suite
+7. `bin/rails db:create` でデータベースを作成する
+8. `bin/rails db:migrate` でマイグレートを実行
+9. `bin/rake data:setup` でelasticsearchにインデックスを作成する
+10. `bin/rails s`でサービスとsidekiqを立ち上げ、`localhost:3000`がエラーなくひらけたら完了
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
