@@ -28,4 +28,3 @@
 
 ### 簡単な使い方
 https://ted-tech.hateblo.jp/entry/2020/08/11/182612
-
